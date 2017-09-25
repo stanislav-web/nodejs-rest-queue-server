@@ -1,0 +1,12 @@
+{
+  "name": "node-queue",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "migration": "NODE_ENV=development  migrations/db.js",
+    "start": "supervisor ./bin/www"
+  },
+  "dependencies": {
+    "pg": "^6.1.0"
+  }
+}

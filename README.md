@@ -1,2 +1,3 @@
-# Tracker
-NodeJS PostgresSQL Tasks Tracker
+Development
+----------------
+[ADD] Migration `npm run migration` @estimated 1h30m
