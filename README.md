@@ -17,13 +17,14 @@ Requirements
 
 Configuration
 -----------------
-/app/config.js
-/dump/scheme.sql
+- /app/config.js
+- /dump/scheme.sql
 
 Installation
 ----------------
-`npm i` - install dependencies
-`npm start`  - start app (localhost:8081)
+- `npm i` - install dependencies
+- `npm start`  - start app (localhost:8081)
+- `npm run test` - run rest api tests
 
 Run
 ----------------
