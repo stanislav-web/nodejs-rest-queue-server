@@ -1,16 +1,29 @@
-N
-
 Development
 ----------------
-[ADD] Migration `npm run migration` @estimated 1h30m
-[LINKED] Async/Await `models < controllers > router` instead of Promises @estimated 2h30m
-[COMPLETE] REST API @estimated 1h30m
-[COMPLETE] SOCKET IO implemented @estimated 40m
+
+- [ADD] Migration `npm run migration` @estimated 1h30m
+- [LINKED] Async/Await `models < controllers > router` instead of Promises @estimated 2h30m
+- [COMPLETE] REST API @estimated 1h30m
+- [COMPLETE] SOCKET IO implemented @estimated 40m
+- [COMPLETE] Postgress Listen/Notify @estimated 30m
+- [COMPLETE] Tests @estimated 30m
+
+Summary : 7h30m
+
+Requirements
+-----------------
+- NodeJS & NPM 8.x
+- Postgress 9.x
+
+Configuration
+-----------------
+/app/config.js
+/dump/scheme.sql
 
 Installation
 ----------------
-`npm run db` - install db
-
+`npm i` - install dependencies
+`npm start`  - start app (localhost:8081)
 
 Run
 ----------------

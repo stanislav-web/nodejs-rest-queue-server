@@ -41,4 +41,25 @@ async function query (text, params) {
   }
 }
 
-module.exports = {query};
+/**
+ * LISTEN/NOTIFY
+ *
+ * @param listener
+ * @param handler
+ * @returns {Promise.<*>}
+ */
+async function notify(listener, handler) {
+
+  try {
+    await client.on("notification", (message) => {
+      return handler(message);
+    });
+
+    await client.query(`LISTEN ${listener}`);
+
+  } catch (err) {
+    debug('Database error: %s', err.code || err.toString());
+    await client.end();
+  }
+}
+module.exports = {query, notify};

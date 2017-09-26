@@ -1,15 +1,34 @@
-module.exports = async (ctx, io, debug) => {
-  if(200 === ctx.response.status // for success
-    && 'PUT' === ctx.request.method) { // for update
-    if(ctx.request.body.hasOwnProperty('status')) {
-      // check only for status changes
-      let data = {
-        jobId : ctx.params.id,
-        jobStatus:  ctx.request.body.status
-      };
+/**
+ * catchStatusInterval
+ * setInterval
+ */
+let catchStatusInterval;
 
-      io.emit('updateJobStatus', data);
-      debug('Client notified: Job#%d / Status: %s', data.jobId, data.jobStatus);
+/**
+ * Catch Postgres notifications
+ *
+ * @param ctx
+ * @param io
+ * @param debug
+ * @param message
+ * @returns {Promise.<void>}
+ */
+var catchStatus = function (ctx, io, debug, message) {
+
+  if (message) {
+
+    let response = JSON.parse(message.payload);
+    if (response.id && response.status) {
+
+      var interval = setInterval(function () {
+        io.emit('updateJobStatus', {
+          id: response.id,
+          status: response.status
+        });
+        clearInterval(interval);
+        debug('Client notified: Job#%d / Status: %s', response.id, response.status);
+      }, 1000);
     }
   }
 };
+module.exports = {catchStatus};

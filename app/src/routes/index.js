@@ -1,7 +1,7 @@
 const router = require('koa-router')();
 const body = require('koa-body');
 
-const {getJobId, getJobs, createJob, updateJob, removeJob} = require('../controllers');
+const {getJobId, getJobs, createJob, updateJob, listenNotifications, removeJob} = require('../controllers');
 
 router
   .get('/jobs', getJobs)
@@ -13,6 +13,9 @@ router
 module.exports = {
   routes () {
     return router.routes();
+  },
+  notifications (listener) {
+    return listenNotifications(listener)
   },
   allowedMethods () {
     return router.allowedMethods();

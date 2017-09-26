@@ -1,11 +1,11 @@
 {
   "name": "node-queue",
-  "description": "NodeJS Queue",
+  "description": "NodeJS not Queue than just event notifier",
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "db": "DEBUG=cli node ./migrations/index.js",
-    "start": "DEBUG=cli node --harmony ./server.js"
+    "start": "DEBUG=cli node --harmony ./server.js",
+    "test": "mocha ./tests"
   },
   "dependencies": {
     "debug": "^3.0.1",
@@ -19,5 +19,9 @@
   },
   "engines": {
     "node": ">=8.3.x"
+  },
+  "devDependencies": {
+    "chakram": "^1.5.0",
+    "mocha": "^3.5.3"
   }
 }

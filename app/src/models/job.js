@@ -21,7 +21,7 @@ const fetchAll = () => {
 let fetchOne = (job_id) => {
   return db.query('SELECT ' +
     'job_id, title, description, created, modified, type, status ' +
-    'FROM job WHERE job_id = $1', [job_id]);
+    'FROM job WHERE job_id = $1', [parseInt(job_id)]);
 };
 
 /**
@@ -82,7 +82,20 @@ let update = (job_id, params) => {
   query = query.replace(/,\s*$/, '');
   query += ' WHERE job_id=$1 returning job_id';
 
-  return db.query(query, [job_id]);
+  return db.query(query, [parseInt(job_id)]);
+};
+
+/**
+ * Call notifier
+ *
+ * @param listener
+ * @param handler
+ * @returns {Promise.<*>}
+ */
+let notify = (listener, handler) => {
+  db.notify(listener, function (message) {
+    handler(message);
+  });
 };
 
 /**
@@ -94,7 +107,7 @@ let update = (job_id, params) => {
 let remove = (job_id) => {
 
   return db.query('DELETE FROM job ' +
-    'WHERE job_id = $1', [job_id]);
+    'WHERE job_id = $1', [parseInt(job_id)]);
 };
 
-module.exports = {fetchOne, fetchAll, add, update, remove};
+module.exports = {fetchOne, fetchAll, add, update, notify, remove};

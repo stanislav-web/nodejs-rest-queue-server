@@ -1,5 +1,5 @@
 const config = require('../../config');
-const {fetchOne, fetchAll, add, update, remove} = require('../models/job');
+const {fetchOne, fetchAll, add, update, notify, remove} = require('../models/job');
 const {createJobValidator, updateJobValidator} = require('../validator');
 
 /**
@@ -9,7 +9,7 @@ const {createJobValidator, updateJobValidator} = require('../validator');
  * @param next
  * @returns {Promise.<void>}
  */
-async function getJobs (ctx, next) {
+getJobs = async (ctx, next) => {
 
   let response = await fetchAll();
 
@@ -38,7 +38,7 @@ async function getJobs (ctx, next) {
  * @param next
  * @returns {Promise.<void>}
  */
-async function getJobId (ctx, next) {
+getJobId = async (ctx, next) => {
 
   let response = await fetchOne(ctx.params.id);
 
@@ -67,7 +67,7 @@ async function getJobId (ctx, next) {
  * @param next
  * @returns {Promise.<void>}
  */
-async function createJob (ctx, next) {
+createJob = async (ctx, next) => {
 
   let errors = createJobValidator(ctx.request.body);
   if (!errors.length) {
@@ -111,7 +111,7 @@ async function createJob (ctx, next) {
  * @param next
  * @returns {Promise.<void>}
  */
-async function updateJob (ctx, next) {
+updateJob = async (ctx, next) => {
 
   let errors = updateJobValidator(ctx.request.body);
   if (!errors.length) {
@@ -144,7 +144,7 @@ async function updateJob (ctx, next) {
   }
 
   await next();
-}
+};
 
 /**
  * Remove job
@@ -153,7 +153,7 @@ async function updateJob (ctx, next) {
  * @param next
  * @returns {Promise.<void>}
  */
-async function removeJob (ctx, next) {
+removeJob = async (ctx, next) => {
   let response = await remove(ctx.params.id);
 
   if (!response) {
@@ -168,6 +168,20 @@ async function removeJob (ctx, next) {
   }
 
   await next();
+};
+
+
+
+/**
+ * Listen Notifications
+ * @param listener
+ * @returns {Promise.<void>}
+ */
+function listenNotifications (listener) {
+
+  notify('watch_status', function(message) {
+    listener(message);
+  });
 }
 
-module.exports = {getJobId, getJobs, createJob, updateJob, removeJob};
+module.exports = {getJobId, getJobs, createJob, updateJob, removeJob, listenNotifications};

@@ -14,7 +14,7 @@ window.onload = function () {
       var block = document.getElementsByClassName('alert')[0];
         block.innerHTML = 'Connected...' +
         '\nand waiting for updates';
-        block.innerHTML = 'Job #' + data.jobId + ' has been updated to ' + data.jobStatus;
+        block.innerHTML = 'Job #' + data.id + ' has been updated to ' + data.status;
     });
   });
 };
