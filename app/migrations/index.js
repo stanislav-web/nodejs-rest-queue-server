@@ -1,5 +1,5 @@
-const env = process.env.NODE_ENV || 'development';
-const config = require('../config')[env];
+const config = require('../config');
+const debug = require('debug')(config.app.debug);
 const {Pool} = require('pg');
 
 const pool = new Pool({
@@ -31,8 +31,8 @@ const queries = {
   '  job_id SERIAL PRIMARY KEY,\n' +
   '  title TEXT,\n' +
   '  description TEXT,\n' +
-  '  created timestamp without time zone,\n' +
-  '  modified timestamp without time zone,\n' +
+  '  created timestamp without time zone default now(),\n' +
+  '  modified timestamp without time zone default now(),\n' +
   '  type job_type,\n' +
   '  status job_status\n' +
   ')',
@@ -45,60 +45,60 @@ pool.connect((err, client, done) => {
     if (err) {
       return console.error('Error running query', err);
     }
-    console.log(queries.dropTable + ' - ok');
+    debug('%s', queries.dropTable);
   });
 
   let dropFunction = () => client.query(queries.dropFunction, (err) => {
     if (err) {
       return console.error('Error running query', err);
     }
-    console.log(queries.dropFunction + ' - ok');
+    debug('%s',queries.dropFunction);
   });
 
   let dropTypeJobStatus = () => client.query(queries.dropTypeJobStatus, (err) => {
     if (err) {
       return console.error('Error running query', err);
     }
-    console.log(queries.dropTypeJobStatus + ' - ok');
+    debug('%s',queries.dropTypeJobStatus);
   });
 
   let dropTypeJobType = () => client.query(queries.dropTypeJobType, (err) => {
     if (err) {
       return console.error('Error running query', err);
     }
-    console.log(queries.dropTypeJobType + ' - ok');
+    debug('%s',queries.dropTypeJobType);
   });
 
   let createTypeJobType = () => client.query(queries.createTypeJobType, (err) => {
     if (err) {
       return console.error('Error running query', err);
     }
-    console.log(queries.createTypeJobType + ' - ok');
+    debug('%s',queries.createTypeJobType);
   });
 
   let createTypeJobStatus = () => client.query(queries.createTypeJobStatus, (err) => {
     if (err) {
       return console.error('Error running query', err);
     }
-    console.log(queries.createTypeJobStatus + ' - ok');
+    debug('%s',queries.createTypeJobStatus);
   });
 
   let createFunction = () => client.query(queries.createFunction, (err) => {
     if (err) {
       return console.error('Error running query', err);
     }
-    console.log(queries.createFunction + ' - ok');
+    debug('%s',queries.createFunction);
   });
 
   let createTable = () => client.query(queries.createTable, (err) => {
     if (err) {
       return console.error('Error running query', err);
     }
-    console.log(queries.createTable + ' - ok');
+    debug('%s',queries.createTable);
     client.end();
   });
 
-  var allPromise = Promise.all([
+  let allPromise = Promise.all([
     dropTable(),
     dropFunction(),
     dropTypeJobStatus(),

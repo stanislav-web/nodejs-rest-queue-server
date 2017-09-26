@@ -1,12 +1,23 @@
 {
   "name": "node-queue",
+  "description": "NodeJS Queue",
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "migration": "NODE_ENV=development  migrations/db.js",
-    "start": "supervisor ./bin/www"
+    "db": "DEBUG=cli node ./migrations/index.js",
+    "start": "DEBUG=cli node --harmony ./server.js"
   },
   "dependencies": {
-    "pg": "^6.1.0"
+    "debug": "^3.0.1",
+    "jsesc": "^2.5.1",
+    "koa": "^2.3.0",
+    "koa-body": "^2.3.0",
+    "koa-json": "^2.0.2",
+    "koa-router": "^7.2.1",
+    "pg": "^6.1.0",
+    "socket.io": "^2.0.3"
+  },
+  "engines": {
+    "node": ">=8.3.x"
   }
 }
