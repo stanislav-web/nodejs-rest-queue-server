@@ -28,10 +28,9 @@ let Job = () => createJob(request, config[status]).then((response) => {
     `);
       }
     );
-  }
-  queue.onIdle().then(() => {
+  } else {
     debug(`Tasks idle...`);
-  });
+  }
 }).catch((error) => {
   debug(`Error ${error}`);
 });
