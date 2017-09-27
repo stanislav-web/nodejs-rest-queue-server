@@ -1,4 +1,4 @@
-const db = require('../db');
+const db = require('../db.client');
 const jsesc = require('jsesc');
 
 /**
@@ -22,6 +22,20 @@ let fetchOne = (job_id) => {
   return db.query('SELECT ' +
     'job_id, title, description, created, modified, type, status ' +
     'FROM job WHERE job_id = $1', [parseInt(job_id)]);
+};
+
+/**
+ * Fetch job by status
+ *
+ * @param status
+ * @param limit
+ * @returns {Promise.<*>}
+ */
+let fetchOneByStatus = (status, limit) => {
+
+  return db.query('SELECT ' +
+    'job_id, title, description, created, modified, type, status ' +
+    'FROM job WHERE status = $1 ORDER BY created ASC LIMIT $2', [status, parseInt(limit)]);
 };
 
 /**
@@ -86,19 +100,6 @@ let update = (job_id, params) => {
 };
 
 /**
- * Call notifier
- *
- * @param listener
- * @param handler
- * @returns {Promise.<*>}
- */
-let notify = (listener, handler) => {
-  db.notify(listener, function (message) {
-    handler(message);
-  });
-};
-
-/**
  * Remove job
  *
  * @param job_id
@@ -110,4 +111,4 @@ let remove = (job_id) => {
     'WHERE job_id = $1', [parseInt(job_id)]);
 };
 
-module.exports = {fetchOne, fetchAll, add, update, notify, remove};
+module.exports = {fetchOne, fetchOneByStatus, fetchAll, add, update, remove};

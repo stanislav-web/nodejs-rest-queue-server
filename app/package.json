@@ -4,18 +4,24 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "DEBUG=cli node --harmony ./server.js",
-    "test": "mocha ./tests"
+    "start": "DEBUG=cli node -r dotenv/config --harmony ./server.js dotenv_config_path=../.env",
+    "tracker": "DEBUG=cli node -r dotenv/config --harmony ./tracker.js dotenv_config_path=../.env",
+    "tracker2": "DEBUG=cli node -r dotenv/config --harmony ./tracker2.js dotenv_config_path=../.env",
+    "test": "mocha -r dotenv/config ./tests dotenv_config_path=../.env"
   },
   "dependencies": {
+    "async-request": "^1.2.0",
     "debug": "^3.0.1",
+    "dotenv": "^4.0.0",
     "jsesc": "^2.5.1",
     "koa": "^2.3.0",
     "koa-body": "^2.3.0",
     "koa-json": "^2.0.2",
     "koa-router": "^7.2.1",
-    "pg": "^6.1.0",
-    "socket.io": "^2.0.3"
+    "p-queue": "^2.2.0",
+    "pg": "^6.4.2",
+    "socket.io": "^2.0.3",
+    "socket.io-emitter": "^3.1.0"
   },
   "engines": {
     "node": ">=8.3.x"

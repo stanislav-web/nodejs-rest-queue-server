@@ -2,7 +2,7 @@ window.onload = function () {
   'use strict';
 
   //noinspection NodeModulesDependencies
-  var socket = io.connect('ws://localhost:8081', {
+  var socket = io.connect('ws://localhost:9003', {
     reconnection: true,
     reconnectionDelay: 1000,
     reconnectionDelayMax: 5000,

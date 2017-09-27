@@ -1,5 +1,5 @@
-const config = require('../../config');
-const {fetchOne, fetchAll, add, update, notify, remove} = require('../models/job');
+const config = require('../../config').app;
+const {fetchOne, fetchAll, fetchOneByStatus, add, update, remove} = require('../models/job');
 const {createJobValidator, updateJobValidator} = require('../validator');
 
 /**
@@ -29,7 +29,7 @@ getJobs = async (ctx, next) => {
   }
 
   await next();
-}
+};
 
 /**
  * Get job by id
@@ -58,7 +58,36 @@ getJobId = async (ctx, next) => {
   }
 
   await next();
-}
+};
+
+/**
+ * Get job by status
+ *
+ * @param ctx
+ * @param next
+ * @returns {Promise.<void>}
+ */
+getJobByStatus = async (ctx, next) => {
+
+  let response = await fetchOneByStatus(ctx.params.status, ctx.params.limit);
+
+  if (!response) {
+    ctx.status = config.error.notFound;
+    ctx.body = {
+      status: ctx.status,
+      message: config.error.notFoundErrorMessage,
+    };
+  } else {
+    ctx.status = 200;
+    ctx.body = {
+      status: ctx.status,
+      count: response.rowCount,
+      rows: response.rows
+    };
+  }
+
+  await next();
+};
 
 /**
  * Create job
@@ -102,7 +131,7 @@ createJob = async (ctx, next) => {
   }
 
   await next();
-}
+};
 
 /**
  * Update job
@@ -170,18 +199,4 @@ removeJob = async (ctx, next) => {
   await next();
 };
 
-
-
-/**
- * Listen Notifications
- * @param listener
- * @returns {Promise.<void>}
- */
-function listenNotifications (listener) {
-
-  notify('watch_status', function(message) {
-    listener(message);
-  });
-}
-
-module.exports = {getJobId, getJobs, createJob, updateJob, removeJob, listenNotifications};
+module.exports = {getJobId, getJobs, getJobByStatus, createJob, updateJob, removeJob};

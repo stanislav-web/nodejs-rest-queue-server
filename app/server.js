@@ -1,36 +1,23 @@
 const http = require('http');
 const koa = require('koa');
-const config = require('./config');
-const debug = require('debug')(config.app.debug);
+const debug = require('debug')(process.env.DEBUG);
 const json = require('koa-json');
+const config = require('./config');
 const error = require('./middleware/error');
-const {catchStatus} = require('./interceptors/status');
-const {routes, notifications, allowedMethods} = require('./src/routes');
-
+const {routes, allowedMethods} = require('./src/routes');
 debug('Booting %s', config.app.name);
 
 app = new koa();
 
-const server = http.createServer(app.callback()).listen(config.server.port, function () {
-  debug('%s listening at port %d', config.app.name, config.server.port);
+const server = http.createServer(app.callback()).listen(process.env.HTTP_PORT, function () {
+  debug('%s is available at http://%s:%d',
+    config.app.name,
+    process.env.HTTP_HOST,
+    process.env.HTTP_PORT);
 });
-
-const io = require('socket.io').listen(server);
-io.set('heartbeat timeout', 4000);
-io.set('heartbeat interval', 2000);
-io.on('disconnect', function () {
-  debug('...Disconnected from socket');
-});
-
 app.use(allowedMethods());
 app.use(routes());
 app.use(error);
-app.use(async (ctx, next) => {
-  notifications(function (message) {
-    catchStatus(ctx, io, debug, message);
-  });
-  await next();
-});
 app.use(json);
 
 module.exports = {

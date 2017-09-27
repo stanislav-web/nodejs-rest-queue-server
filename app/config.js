@@ -1,24 +1,20 @@
 let config = {
   app: {
-    name: 'NodeJS Queue',
-    version: '0.0.1',
-    debug : 'cli'
+    name: 'NodeJS Rest Queue Server',
+    error: {
+      notFound : 404,
+      serverError : 500,
+      serverErrorMessage : 'InternalServerError',
+      notFoundErrorMessage : 'Not Found'
+    },
   },
-  server: {
-    port: 8081
-  },
-  error: {
-    notFound : 404,
-    serverError : 500,
-    serverErrorMessage : 'InternalServerError',
-    notFoundErrorMessage : 'Not Found'
-  },
-  db: {
-    host: 'localhost',
-    port: 5432,
-    database: 'queue',
-    username: 'test',
-    password: 'qwerty'
+  cli: {
+    waiting : 'http://localhost:8081/jobs/status/waiting/limit/1',
+    pending : 'http://localhost:8081/jobs/status/pending/limit/1',
+    queue: {
+      interval : 1000,
+      concurency: 1
+    }
   }
 };
 

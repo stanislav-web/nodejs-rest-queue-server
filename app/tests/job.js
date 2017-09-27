@@ -1,10 +1,9 @@
-const config = require('../config');
 const chakram = require('chakram');
 const expect = chakram.expect;
 
 describe('Jobs rest API assertions', function () {
 
-  const allJobsQueryString = `http://localhost:${config.server.port}/jobs`;
+  const allJobsQueryString = `http://${process.env.HTTP_HOST}:${process.env.HTTP_PORT}/jobs`;
 
   it('should make HTTP 500 error', function () {
     let response = chakram.get(allJobsQueryString + '/sdsdsdsdsdsd');
@@ -86,4 +85,15 @@ describe('Jobs rest API assertions', function () {
     });
   });
 
+  it('should make HTTP GET /jobs/status/:status/limit/:limit', function () {
+    chakram.get(allJobsQueryString + '/status/waiting/limit/1').then(function (response) {
+      expect(response).to.have.status(200);
+      expect(response).to.have.header('content-type', 'application/json; charset=utf-8');
+      expect(response).not.to.be.encoded.with.gzip;
+      expect(response).to.comprise.of.json({
+        status: 200,
+        count: 1
+      });
+    });
+  });
 });
