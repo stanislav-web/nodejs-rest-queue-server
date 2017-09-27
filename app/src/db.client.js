@@ -2,6 +2,7 @@ const debug = require('debug')(process.env.DEBUG);
 const {db} = require('./connect');
 const {channelListener} = require('./channel');
 
+//noinspection Annotator
 /**
  * Channel Listener
  */
@@ -29,7 +30,7 @@ async function query (text, params) {
 
   } catch (err) {
     debug('Database error: %s', err.code || err.toString());
-    await client.end();
+    await db.end();
   }
 }
 
