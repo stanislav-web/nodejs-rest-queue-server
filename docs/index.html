@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NodeJS REST API Documentation</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+  <link rel="stylesheet" href="api-doc-generator.min.css">
+</head>
+<body>
+  <main>
+    <nav class="navigation">
+      <section class="container">
+        <div class="row">
+          <div class="column">
+            <div class="title">NodeJS REST API Documentation</div>
+          </div>
+        </div>
+      </section>
+    </nav>
+
+    <section class="container">
+      <div class="row">
+        <div class="column">
+          <div class="sections">
+            <ul>
+              <li>
+                <a href="#REST API">REST API</a>
+              </li>
+              <li>
+                <a href="#"></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container">
+      <div class="row">
+        <div class="column">
+          <div class="section">
+            <div class="section-header">
+              <div class="section-title">
+                <a name="REST API" class="section-toggle">REST API</a>
+              </div>
+
+              <div class="actions">
+                <a class="section-toggle">Show/hide</a>
+                <a class="hide-description">List Operations</a>
+                <a class="show-description">Expand Operations</a>
+              </div>
+            </div>
+
+            <div class="endpoints">
+              <div class="endpoint get">
+                <div class="address toggle-description">
+                  <span class="label">get</span><span class="url">/jobs</span>
+                </div>
+
+                <div class="description hidden">
+                  <p>Get a list of jobs</p>
+
+                </div>
+              </div>
+              <div class="endpoint get">
+                <div class="address toggle-description">
+                  <span class="label">get</span><span class="url">/jobs/:id</span>
+                </div>
+
+                <div class="description hidden">
+                  <p>Get job by id</p>
+
+                  <table>
+                    <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Type</th>
+                      <th>Required</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td>id</td>
+                      <td>int</td>
+                      <td>true</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="endpoint get">
+                <div class="address toggle-description">
+                  <span class="label">get</span><span class="url">/jobs/status/:status/limit/:limit</span>
+                </div>
+
+                <div class="description hidden">
+                  <p>Get least of one availabe job by status</p>
+
+                  <table>
+                    <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Type</th>
+                      <th>Required</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td>status</td>
+                      <td>string</td>
+                      <td>true</td>
+                    </tr>
+                    <tr>
+                      <td>limit</td>
+                      <td>int</td>
+                      <td>false</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="endpoint post">
+                <div class="address toggle-description">
+                  <span class="label">post</span><span class="url">/jobs</span>
+                </div>
+
+                <div class="description hidden">
+                  <p>Create job</p>
+
+                  <table>
+                    <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Type</th>
+                      <th>Required</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td>body</td>
+                      <td>string</td>
+                      <td>true</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="endpoint put">
+                <div class="address toggle-description">
+                  <span class="label">put</span><span class="url">/jobs/:id</span>
+                </div>
+
+                <div class="description hidden">
+                  <p>Update job</p>
+
+                  <table>
+                    <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Type</th>
+                      <th>Required</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td>body</td>
+                      <td>string</td>
+                      <td>true</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="endpoint delete">
+                <div class="address toggle-description">
+                  <span class="label">delete</span><span class="url">/jobs/:id</span>
+                </div>
+
+                <div class="description hidden">
+                  <p>Delete job</p>
+
+                  <table>
+                    <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Type</th>
+                      <th>Required</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td>id</td>
+                      <td>int</td>
+                      <td>false</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="container">
+      <div class="row">
+        <div class="column">
+          <div class="section">
+            <div class="section-header">
+              <div class="section-title">
+                <a name="" class="section-toggle"></a>
+              </div>
+
+              <div class="actions">
+                <a class="section-toggle">Show/hide</a>
+                <a class="hide-description">List Operations</a>
+                <a class="show-description">Expand Operations</a>
+              </div>
+            </div>
+
+            <div class="endpoints">
+              <div class="endpoint {{routes: (function()), allowedMethods: (function())}}">
+                <div class="address toggle-description">
+                  <span class="label">{{routes: (function()), allowedMethods: (function())}}</span><span class="url"></span>
+                </div>
+
+                <div class="description hidden">
+                  <p>Export modules to -&gt; server to use as middleware</p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script type="text/javascript" src="api-doc-generator.min.js"></script>
+</body>
+</html>

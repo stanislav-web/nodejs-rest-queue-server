@@ -4,7 +4,7 @@
  * @param body
  * @returns {Array}
  */
-let createJobValidator = (body) => {
+let jobValidatorForCreate = (body) => {
 
   let validationErrors = [];
 
@@ -30,7 +30,7 @@ let createJobValidator = (body) => {
   }
   return validationErrors;
 };
-let updateJobValidator = (body) => {
+let jobValidatorForUpdate = (body) => {
 
   let validationErrors = [];
 
@@ -67,7 +67,8 @@ let updateJobValidator = (body) => {
         '`status` can not be empty'
       );
   }
+
   return validationErrors;
 };
 
-module.exports = {createJobValidator, updateJobValidator};
+module.exports = {jobValidatorForCreate, jobValidatorForUpdate};

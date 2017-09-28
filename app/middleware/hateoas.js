@@ -1,3 +1,11 @@
+const SERVER_ERROR = 500;
+
+/**
+ * HateOAS middelware
+ * @param ctx
+ * @param next
+ * @returns {Promise.<void>}
+ */
 module.exports = async (ctx, next) => {
   try {
 
@@ -11,7 +19,7 @@ module.exports = async (ctx, next) => {
     await next();
   } catch (err) {
     // will only respond with JSON
-    ctx.status = err.statusCode || err.status || 500;
+    ctx.status = err.statusCode || err.status || SERVER_ERROR;
     ctx.body = {
       message: err.message
     };

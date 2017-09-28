@@ -1,5 +1,5 @@
 {
-  "name": "node-queue",
+  "name": "node-postgres-queue",
   "description": "NodeJS not Queue than just event notifier",
   "version": "0.0.1",
   "private": true,
@@ -17,8 +17,8 @@
     "koa": "^2.3.0",
     "koa-body": "^2.3.0",
     "koa-json": "^2.0.2",
+    "koa-json-error": "^3.1.2",
     "koa-router": "^7.2.1",
-    "p-queue": "^2.2.0",
     "pg": "^6.4.2",
     "socket.io": "^2.0.3"
   },
@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "chakram": "^1.5.0",
-    "mocha": "^3.5.3"
+    "mocha": "^3.5.3",
+    "socket.io-client": "^2.0.3"
   }
 }

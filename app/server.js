@@ -2,26 +2,38 @@ const http = require('http');
 const koa = require('koa');
 const debug = require('debug')(process.env.DEBUG);
 const json = require('koa-json');
-const config = require('./config');
+const {app : config} = require('./config');
 const error = require('./middleware/error');
 const {routes, allowedMethods} = require('./src/routes');
-debug('Booting %s', config.app.name);
+debug('Booting %s', config.name);
 
-app = new koa();
+const app = new koa();
 
-const server = http.createServer(app.callback()).listen(process.env.HTTP_PORT, function () {
+/**
+ * Start server
+ *
+ * @type {Server|*}
+ */
+const server = http.createServer(app.callback())
+  .listen(process.env.HTTP_PORT, () => {
   debug('%s is available at http://%s:%d',
-    config.app.name,
+    config.name,
     process.env.HTTP_HOST,
     process.env.HTTP_PORT);
+}).on('close', () => {
+    debug('Server shutdown.');
 });
+
 app.use(allowedMethods());
 app.use(routes());
 app.use(error);
 app.use(json);
 
-module.exports = {
-  closeServer () {
-    server.close();
-  }
-};
+/**
+ * Shutdown server eve
+ */
+process.on('SIGINT', () => {
+  server.close(() => {
+    process.exit(0);
+  });
+});

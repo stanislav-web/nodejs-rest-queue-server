@@ -1,6 +1,5 @@
-const config = require('../../config').app;
-const {fetchOne, fetchAll, fetchOneByStatus, add, update, remove} = require('../models/job');
-const {createJobValidator, updateJobValidator} = require('../validator');
+const {fetchOne, fetchAll, fetchOneByStatus, add, update, remove, removeAll} = require('../models/job');
+const {jobValidatorForCreate, jobValidatorForUpdate} = require('../validator');
 
 /**
  * Get all jobs
@@ -13,16 +12,10 @@ getJobs = async (ctx, next) => {
 
   let response = await fetchAll();
 
-  if (!response) {
-    ctx.status = config.error.serverError;
+  if (response) {
+
     ctx.body = {
-      status: ctx.status,
-      message: config.error.serverErrorMessage,
-    };
-  } else {
-    ctx.status = 200;
-    ctx.body = {
-      status: ctx.status,
+      status: ctx.statusCode,
       count: response.rowCount,
       rows: response.rows
     };
@@ -42,16 +35,9 @@ getJobId = async (ctx, next) => {
 
   let response = await fetchOne(ctx.params.id);
 
-  if (!response) {
-    ctx.status = config.error.notFound;
+  if (response) {
     ctx.body = {
-      status: ctx.status,
-      message: config.error.notFoundErrorMessage,
-    };
-  } else {
-    ctx.status = 200;
-    ctx.body = {
-      status: ctx.status,
+      status: ctx.statusCode,
       count: response.rowCount,
       rows: response.rows
     };
@@ -69,18 +55,15 @@ getJobId = async (ctx, next) => {
  */
 getJobByStatus = async (ctx, next) => {
 
+  if(typeof ctx.params.limit === 'undefined') {
+    ctx.params.limit = 1;
+  }
+
   let response = await fetchOneByStatus(ctx.params.status, ctx.params.limit);
 
-  if (!response) {
-    ctx.status = config.error.notFound;
+  if (response) {
     ctx.body = {
-      status: ctx.status,
-      message: config.error.notFoundErrorMessage,
-    };
-  } else {
-    ctx.status = 200;
-    ctx.body = {
-      status: ctx.status,
+      status: ctx.statusCode,
       count: response.rowCount,
       rows: response.rows
     };
@@ -98,7 +81,7 @@ getJobByStatus = async (ctx, next) => {
  */
 createJob = async (ctx, next) => {
 
-  let errors = createJobValidator(ctx.request.body);
+  let errors = jobValidatorForCreate(ctx.request.body);
   if (!errors.length) {
 
     let response = await add(
@@ -108,24 +91,15 @@ createJob = async (ctx, next) => {
       ctx.request.body.status,
     );
 
-    if (!response) {
-      ctx.status = config.error.serverError;
-      ctx.body = {
-        status: ctx.status,
-        message: config.error.serverErrorMessage,
-      };
-    } else {
-      ctx.status = 201;
-      ctx.body = {
-        status: ctx.status,
-        count: response.rowCount,
-        rows: response.rows
-      };
-    }
-  } else {
-    ctx.status = config.error.serverError;
+    ctx.status = 201;
     ctx.body = {
       status: ctx.status,
+      count: response.rowCount,
+      rows: response.rows
+    };
+  } else {
+    ctx.status = 400;
+    ctx.body = {
       message: errors.join('\n')
     };
   }
@@ -141,8 +115,7 @@ createJob = async (ctx, next) => {
  * @returns {Promise.<void>}
  */
 updateJob = async (ctx, next) => {
-
-  let errors = updateJobValidator(ctx.request.body);
+  let errors = jobValidatorForUpdate(ctx.request.body);
   if (!errors.length) {
 
     let response = await update(
@@ -150,14 +123,9 @@ updateJob = async (ctx, next) => {
       ctx.request.body
     );
 
-    if (!response) {
-      ctx.status = config.error.notFound;
-      ctx.body = {
-        status: ctx.status,
-        message: config.error.notFoundErrorMessage,
-      };
-    } else {
-      ctx.status = 200;
+    ctx.status = 200;
+
+    if (response) {
       ctx.body = {
         status: ctx.status,
         count: response.rowCount,
@@ -165,9 +133,8 @@ updateJob = async (ctx, next) => {
       };
     }
   } else {
-    ctx.status = config.error.serverError;
+    ctx.status = 400;
     ctx.body = {
-      status: ctx.status,
       message: errors.join('\n')
     };
   }
@@ -183,17 +150,23 @@ updateJob = async (ctx, next) => {
  * @returns {Promise.<void>}
  */
 removeJob = async (ctx, next) => {
-  let response = await remove(ctx.params.id);
 
-  if (!response) {
-    ctx.status = config.error.notFound;
-    ctx.body = {
-      status: ctx.status,
-      message: config.error.serverErrorMessage,
-    };
+  let response;
+
+  if(typeof ctx.params.id === 'undefined') {
+    response = await removeAll();
   } else {
+    response = await remove(ctx.params.id);
+  }
+
+  if (0 < response.rowCount) {
     ctx.status = 204;
     ctx.body = {};
+  } else {
+    ctx.body = {
+      count: 0,
+      rows: []
+    };
   }
 
   await next();

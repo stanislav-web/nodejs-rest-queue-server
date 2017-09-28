@@ -8,6 +8,7 @@ Development
 - [COMPLETE] Postgress Listen/Notify @estimated 30m
 - [COMPLETE] Tests @estimated 30m
 - [ADD] Client tracker @estimated 3h
+- [COMPLETE] ES6 beautify )
 
 Summary : 10h30m
 
@@ -20,6 +21,7 @@ Configuration
 -----------------
 - .env
 - /dump/schema.sql
+- /dump/demo.sql
 
 Installation
 ----------------
@@ -29,8 +31,20 @@ Installation
 - `npm run tracker pending`  - process (pending tasks) -> complete 
 - `npm run test` - run rest api tests
 
-REST API
+Using
 ----------------
+1. Start nodejs server `npm start`. By defaults it listening on localhost:8081
+2. Create some jobs for further work. Use POST request for `http://localhost:8081/jobs {body}`
+3. The next step to launch tracker by command `npm run tracker waiting` or `npm run tracker pending` depends on what status of the task you want to perform
+4. The tracker will process the tasks while they exist, then every second it will ask the server to process for new tasks in the order of the queue FIFO one by one and in real time to notify the client of the fulfillment
+
+
+Conclusion
+----------------
+- Documentation: /docs
+- Client: /app/public/index.html
+- Demo data /dump/demo.sql
+
 ```
 curl -XPOST  "localhost:8081/jobs" -d '{"title":"Test title","description":"Test Description","type":"feature", "status" : "waiting"}' -H 'Content-Type: application/json'
 curl -XGET   "localhost:8081/jobs"

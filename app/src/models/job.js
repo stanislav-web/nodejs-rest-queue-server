@@ -19,9 +19,13 @@ const fetchAll = () => {
  * @returns {Promise.<*>}
  */
 let fetchOne = (job_id) => {
+
+  let jobId =  parseInt(job_id);
+      jobId = isNaN(jobId) ? 0 : jobId;
+
   return db.query('SELECT ' +
     'job_id, title, description, created, modified, type, status ' +
-    'FROM job WHERE job_id = $1', [parseInt(job_id)]);
+    'FROM job WHERE job_id = $1', [jobId]);
 };
 
 /**
@@ -33,9 +37,12 @@ let fetchOne = (job_id) => {
  */
 let fetchOneByStatus = (status, limit) => {
 
+  limit =  parseInt(limit);
+  limit = isNaN(limit) ? 0 : limit;
+
   return db.query('SELECT ' +
     'job_id, title, description, created, modified, type, status ' +
-    'FROM job WHERE status = $1 ORDER BY created ASC LIMIT $2', [status, parseInt(limit)]);
+    'FROM job WHERE status = $1 ORDER BY created ASC LIMIT $2', [status, limit]);
 };
 
 /**
@@ -63,6 +70,10 @@ let add = (title, description, type = 'feature', status = 'waiting') => {
  * @returns {Promise.<*>}
  */
 let update = (job_id, params) => {
+
+  let jobId =  parseInt(job_id);
+    jobId = isNaN(jobId) ? 0 : jobId;
+
   let query = 'UPDATE job SET ';
 
   if (params.title) {
@@ -96,7 +107,7 @@ let update = (job_id, params) => {
   query = query.replace(/,\s*$/, '');
   query += ' WHERE job_id=$1 returning job_id';
 
-  return db.query(query, [parseInt(job_id)]);
+  return db.query(query, [jobId]);
 };
 
 /**
@@ -107,8 +118,20 @@ let update = (job_id, params) => {
  */
 let remove = (job_id) => {
 
+  let jobId =  parseInt(job_id);
+    jobId = isNaN(jobId) ? 0 : jobId;
+
   return db.query('DELETE FROM job ' +
-    'WHERE job_id = $1', [parseInt(job_id)]);
+    'WHERE job_id = $1', [jobId]);
 };
 
-module.exports = {fetchOne, fetchOneByStatus, fetchAll, add, update, remove};
+/**
+ * Remove all
+ *
+ * @returns {Promise.<*>}
+ */
+let removeAll = () => {
+  return db.query('DELETE FROM job');
+};
+
+module.exports = {fetchOne, fetchOneByStatus, fetchAll, add, update, remove, removeAll};

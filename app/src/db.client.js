@@ -6,7 +6,7 @@ const {channelListener} = require('./channel');
 /**
  * Channel Listener
  */
-db.on('notification', function(message) {
+db.on('notification', (message) => {
   channelListener[message.channel](message);
 });
 

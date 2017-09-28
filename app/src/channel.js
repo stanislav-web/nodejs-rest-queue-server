@@ -9,6 +9,7 @@ let channelListener = {
 
   /**
    * Watch Status channel
+   *
    * @param message
    */
   watch_status: (message) => {
@@ -16,12 +17,19 @@ let channelListener = {
     let response = JSON.parse(message.payload);
     if (response.id && response.status) {
       io.emit('updateJobStatus', {
-        id: response.id,
-        status: response.status
+          id: response.id,
+          status: response.status
       });
       debug('Client notified: Job#%d / Status: %s', response.id, response.status);
     }
   }
 };
+
+/**
+ * Shutdown socket namespace
+ */
+process.on('SIGINT', () => {
+  io.removeAllListeners();
+});
 
 module.exports = {channelListener};

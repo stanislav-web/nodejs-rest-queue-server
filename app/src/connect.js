@@ -1,4 +1,5 @@
 const pg = require('pg');
+
 const db = new pg.Client('postgres://'+
   process.env.DB_USER+':'+
   process.env.DB_PASS+'@'+
@@ -9,4 +10,9 @@ const db = new pg.Client('postgres://'+
 db.connect();
 db.query('LISTEN watch_status');
 
+/**
+ * Export db resource
+ *
+ * @type {{db: *}}
+ */
 module.exports = {db};
