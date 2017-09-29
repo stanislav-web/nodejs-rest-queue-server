@@ -3,11 +3,11 @@
   "version": "1.1.1",
   "description": "Nodejs Rest Queue Server",
   "keywords": [
-    "Node posgress",
-    "Node posgress rest",
-    "Node postgress tasks",
-    "Node postgress notifier",
-    "Node postgress tasks tracker"
+    "Node postgres",
+    "Node postgres rest",
+    "Node postgres tasks",
+    "Node postgres notifier",
+    "Node postgres tasks tracker"
   ],
   "author": {
     "name": "Stanislav WEB",
