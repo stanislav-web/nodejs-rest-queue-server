@@ -29,7 +29,7 @@
     "start": "DEBUG=cli node -r dotenv/config --harmony ./server.js",
     "tracker": "DEBUG=cli node -r dotenv/config --harmony ./tracker.js",
     "postinstall": "DEBUG=cli node  -r dotenv/config ./pgdump.js",
-    "test": "mocha -r dotenv/config ./tests",
+    "test": "mocha -r dotenv/config --reporter mochawesome ./tests",
     "prepublish": "mocha -r dotenv/config ./tests"
   },
   "engines": {
@@ -55,6 +55,7 @@
   "devDependencies": {
     "chakram": "^1.5.0",
     "mocha": "^3.5.3",
+    "mochawesome": "^2.3.1",
     "nodemon": "^1.12.1",
     "socket.io-client": "^2.0.3"
   }
