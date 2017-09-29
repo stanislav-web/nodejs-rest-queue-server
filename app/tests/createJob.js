@@ -39,7 +39,7 @@ describe(`Create Job: POST ${requestUri}`, () => {
     return chakram.wait();
   });
 
-  it("should  required: job_id,title,description,created,modified,type,status", () => {
+  it("should required: job_id,title,description,created,modified,type,status", () => {
     return expect(apiResponse).to.have.schema('rows[0]', {
       "required": [
         "job_id",

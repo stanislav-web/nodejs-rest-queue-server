@@ -1,14 +1,45 @@
 {
-  "name": "node-postgres-queue",
-  "description": "NodeJS not Queue than just event notifier",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "start": "DEBUG=cli node -r dotenv/config --harmony ./server.js dotenv_config_path=../.env",
-    "tracker": "DEBUG=cli node -r dotenv/config --harmony ./tracker.js dotenv_config_path=../.env",
-    "tracker2": "DEBUG=cli node -r dotenv/config --harmony ./tracker2.js dotenv_config_path=../.env",
-    "test": "mocha -r dotenv/config ./tests dotenv_config_path=../.env"
+  "name": "nodejs-rest-queue-server",
+  "version": "1.1.1",
+  "description": "Nodejs Rest Queue Server",
+  "keywords": [
+    "Node posgress",
+    "Node posgress rest",
+    "Node postgress tasks",
+    "Node postgress notifier",
+    "Node postgress tasks tracker"
+  ],
+  "author": {
+    "name": "Stanislav WEB",
+    "email": "stanisov@gmail.com",
+    "url": "https://github.com/stanislav-web"
   },
+  "homepage": "https://github.com/stanislav-web/nodejs-rest-queue-server",
+  "bugs": {
+    "url": "https://github.com/stanislav-web/nodejs-rest-queue-server/issues",
+    "email": "stanisov@gmail.com"
+  },
+  "license": "SEE LICENSE IN <LICENSE>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stanislav-web/nodejs-rest-queue-server.git"
+  },
+  "scripts": {
+    "dev": "DEBUG=cli nodemon -r dotenv/config --harmony ./server.js",
+    "start": "DEBUG=cli node -r dotenv/config --harmony ./server.js",
+    "tracker": "DEBUG=cli node -r dotenv/config --harmony ./tracker.js",
+    "postinstall": "DEBUG=cli node  -r dotenv/config ./pgdump.js",
+    "test": "mocha -r dotenv/config ./tests",
+    "prepublish": "mocha -r dotenv/config ./tests"
+  },
+  "engines": {
+    "node": ">=8.3.x",
+    "npm": ">=5.x"
+  },
+  "os": [
+    "darwin",
+    "linux"
+  ],
   "dependencies": {
     "async-request": "^1.2.0",
     "debug": "^3.0.1",
@@ -17,17 +48,14 @@
     "koa": "^2.3.0",
     "koa-body": "^2.3.0",
     "koa-json": "^2.0.2",
-    "koa-json-error": "^3.1.2",
     "koa-router": "^7.2.1",
     "pg": "^6.4.2",
     "socket.io": "^2.0.3"
   },
-  "engines": {
-    "node": ">=8.3.x"
-  },
   "devDependencies": {
     "chakram": "^1.5.0",
     "mocha": "^3.5.3",
+    "nodemon": "^1.12.1",
     "socket.io-client": "^2.0.3"
   }
 }
