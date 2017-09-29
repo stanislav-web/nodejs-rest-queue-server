@@ -5,7 +5,7 @@ Requirements
 
 Configuration
 -----------------
-- /app/.env
+- .env
 
 Installation
 ----------------
@@ -15,10 +15,6 @@ Installation
 - `npm run tracker pending`  - process (pending tasks) -> complete 
 - `npm run test` - run rest api tests
 - `npm run dev` - run with nodemon
-
-NPM
-----------------
-Also available as : `nodejs-rest-queue-server`
 
 Using
 ----------------
@@ -30,8 +26,8 @@ Using
 
 Conclusion
 ----------------
-- Documentation: /app/docs
-- Client: /app/public/index.html
+- Documentation: /docs
+- Client: /public/index.html
 
 ```
 curl -XPOST  "localhost:8081/jobs" -d '{"title":"Test title","description":"Test Description","type":"feature", "status" : "waiting"}' -H 'Content-Type: application/json'
