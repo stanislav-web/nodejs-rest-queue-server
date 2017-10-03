@@ -25,7 +25,8 @@ env:
 
 before_install:
   - "npm install -g npm"
+
 before_script:
-  - "npm install"
   - psql -c "CREATE DATABASE queue;" -U postgres
   - psql -c "CREATE USER test WITH PASSWORD 'qwerty';" -U postgres
+  - "npm install"
