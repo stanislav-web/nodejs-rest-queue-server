@@ -1,8 +1,8 @@
 language: node_js
 node_js:
 - '8'
-services:
-- postgresql
+addons:
+  postgresql: "9.6"
 cache:
   directories:
   - node_modules
@@ -20,6 +20,7 @@ env:
   - SOCKET_PORT = 9003
   - MOCHAWESOME_REPORTDIR=./tests/reports/
   - MOCHAWESOME_AUTOOPEN=false
+  - SKIP_NOTIFY=true
 before_install:
 - npm install -g npm
 - psql -c "CREATE DATABASE queue;" -U postgres

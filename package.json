@@ -26,7 +26,7 @@
   },
   "scripts": {
     "dev": "DEBUG=cli nodemon -r dotenv/config --harmony ./server.js",
-    "start": "DEBUG=cli node -r dotenv/config --harmony ./server.js",
+    "start": "node -r dotenv/config --harmony ./server.js",
     "tracker": "DEBUG=cli node -r dotenv/config --harmony ./tracker.js",
     "postinstall": "DEBUG=cli node  -r dotenv/config ./pginstall.js",
     "test": "mocha -r dotenv/config --reporter mochawesome ./tests"
