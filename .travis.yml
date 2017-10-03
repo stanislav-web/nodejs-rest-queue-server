@@ -29,3 +29,4 @@ before_install:
   - psql -c "CREATE USER test WITH PASSWORD 'qwerty';" -U postgres
 before_script:
   - "npm install"
+  - "npm start"
