@@ -13,4 +13,4 @@ before_install:
   - "npm install -g npm"
 before_script:
   - "npm install"
-  - "psql -c 'create database queue;' -U postgres"
+  - "psql -c 'create database travis_ci_test;' -U postgres"
