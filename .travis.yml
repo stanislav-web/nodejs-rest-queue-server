@@ -26,7 +26,7 @@ before_install:
 - psql -c "CREATE USER test WITH PASSWORD 'qwerty';" -U postgres
 before_script:
 - npm install
-- npm start
+- npm start&
 script:
 - npm run test
 deploy:
@@ -34,3 +34,5 @@ deploy:
   email: stanisov@gmail.com
   api_key:
     secure: YEV+WOP66u1rQe9kvO4rzhYZKIhL32nWlyunFn9lvbCXhnLQXnQ76z4gRuiTG8Z77eldPN1ngPKSnNhLUOkdRfnmUxVhcgKo1kwciDJvSf7nGdJqumErnlDdXk+0LtJFAWxoGBz9WnqUuFicJh05pYoPGj+SqK3SBDUG5iSSBIplI92jC8Vj9U542VRrEzYwzC/Mz97DFXKejiC3TpJDonzmGT13/nyiEqqvijjb2sdlvTm9zeWKMRY9v1PUrGZsAniAkBu+ldUFVZy8rbgPkPtzRbCFJQpm7PVdD4Pw5Pk7ZnoM/WCOaIdkeM5X/jAymTx/tKL77Xafx86crEU9JP0s7E1rIt3d1AZjkLIQCXJLmGRUpE8SSSljk6oF0twN0/vuc4A1xuH4SmbgUrbdi+rPac6CwsnH6cXP8t1+Itk3c+vqlcrujd/k3w/LQ6TYrNIMVEnyaJ70beEeheyW0qysTaUqTkn0XJoJOCjTXUjNG0gNm+QBVu6JJUIUp3E0k6FxpwcQVy4kVQkpTLviaOWQMr36g0xfFk9Trj+GNIRgFLA1Ai1WZDO5IWczBFbbSalDK11Dz6sSuClBx22Jq/ozWPpANYPa6pNFluDHuO65VAws+UoMIP529q4q1NL3nQVWBHPNpsM62BEYWngYRqHe+wT625L2d8BdFo6I3oE=
+  on:
+    tags: true
