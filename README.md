@@ -5,8 +5,8 @@ REST Queue Server with a distributed listeners
 
 Requirements
 -----------------
-- NodeJS >=6 & NPM 8.x
-- Postgress 9.x
+- NodeJS >=8.x & NPM 5.x
+- Postgres 9.x
 
 Implemented
 -----------------
