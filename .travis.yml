@@ -1,3 +1,4 @@
+sudo : true
 language: node_js
 node_js:
   - "8"
@@ -8,6 +9,23 @@ services:
 cache:
   directories:
     - "node_modules"
+env:
+  - DB_HOST=localhost
+  - DB_PORT=5432
+  - DB_NAME=travis_ci_test
+  - DB_USER=postgres
+  - DB_PASS=
+
+  - DEBUG=cli
+
+  - HTTP_PROTOCOL=http://
+  - HTTP_HOST=localhost
+  - HTTP_PORT=8081
+
+  - SOCKET_PORT = 9003
+
+  - MOCHAWESOME_REPORTDIR=./tests/reports/
+  - MOCHAWESOME_AUTOOPEN=false
 
 before_install:
   - "npm install -g npm"
