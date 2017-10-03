@@ -1,7 +1,20 @@
+REST Queue Server with a distributed listeners
+-----------------
+
+[![Build Status](https://travis-ci.org/stanislav-web/nodejs-rest-queue-server.svg?branch=master)](https://travis-ci.org/stanislav-web/nodejs-rest-queue-server) [![npm version](https://badge.fury.io/js/nodejs-rest-queue-server.svg)](https://badge.fury.io/js/nodejs-rest-queue-server)
+
 Requirements
 -----------------
-- NodeJS & NPM 8.x
+- NodeJS >=6 & NPM 8.x
 - Postgress 9.x
+
+Implemented
+-----------------
+- KOA2 middleware
+- Postgres Listen/Notify
+- Sockets
+- Native Promise queuing
+- ES2017 async/await
 
 Configuration
 -----------------
@@ -15,6 +28,8 @@ Installation
 - `npm run tracker pending`  - process (pending tasks) -> complete 
 - `npm run test` - run rest api tests
 - `npm run dev` - run with nodemon
+
+[![NPM](https://nodei.co/npm/nodejs-rest-queue-server.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/nodejs-rest-queue-server/)
 
 Using
 ----------------

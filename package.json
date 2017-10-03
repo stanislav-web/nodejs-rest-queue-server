@@ -19,7 +19,7 @@
     "url": "https://github.com/stanislav-web/nodejs-rest-queue-server/issues",
     "email": "stanisov@gmail.com"
   },
-  "license": "SEE LICENSE IN <LICENSE>",
+  "license": "GPLv3",
   "repository": {
     "type": "git",
     "url": "https://github.com/stanislav-web/nodejs-rest-queue-server.git"
